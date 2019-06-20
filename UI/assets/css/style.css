@@ -147,6 +147,40 @@ body {
     }
 }
 
+/* banner start */
+
+.banner-img {
+    background-image: url(/UI/assets/img/Google.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    width: 100vw;
+    height: 100vh;
+}
+
+.banner__text {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.568);
+    color: rgb(17, 17, 17);
+    width: 100vw;
+    margin-top: 240px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    -webkit-font-smoothing: antialiased;
+
+}
+
+.banner__text h1 {
+    font-size: 25px;
+    padding: 5px 15px;
+}
+
+.banner__text p {
+    font-size: 15px;
+    padding: 0 10px;
+    padding-bottom: 15px;
+}
+
 /* sign up start */
 
 #signup {
@@ -348,4 +382,592 @@ button:hover {
         min-width: 100px;
         font-size: 13px;
     }
+}
+
+/* post ad start */
+
+#post__ad {
+    padding-top: 80px;
+    height: 690px;
+}
+
+#post__ad .card__wrapper {
+    height: 450px;
+}
+
+#post__ad .post__ad__left, #post__ad .post__ad__right {
+    width: 50%;
+    padding: 30px;
+}
+
+.post__ad__left input[type="text"], .post__ad__right input[type="text"], .post__ad__left select, .post__ad__right select {
+    width: 95%;
+    height: 40px;
+    border: 1px solid #ff8a00;
+    margin-top: 5px;
+    margin-bottom: 13px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font-size: inherit;
+    transition: all 0.2s;
+    color: #092467;
+}
+
+.post__ad__right textarea {
+    border: 1px solid #ff8a00;
+    margin-top: 5px;
+    margin-bottom: 13px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font-size: inherit;
+    transition: all 0.2s;
+    color: #092467;
+}
+
+.post__ad__left select, .post__ad__right select {
+    width: 100%;
+}
+
+.uploader__wrapper {
+    padding-top: 30px;
+    width: 100%;
+}
+
+.uploader {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.uploader img {
+    border: none;
+    vertical-align: middle;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+}
+
+.uploader .photo__input__label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+
+.uploader .image__select {
+    height: 136px;
+    width: 136px;
+    display: none;
+}
+
+@media only screen and (max-width: 1200px) {
+    #post__ad .card__wrapper {
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    #post__ad .main__wrapper {
+        width: 60%;
+    }
+    #post__ad .card__wrapper {
+        width: 100%;
+        flex-direction: column;
+        height: inherit;
+        align-items: center;
+    }
+    #post__ad {
+        height: 1025px;
+    }
+    #post__ad .post__ad__left, #post__ad .post__ad__right {
+        width: 80%;
+        padding: 30px;
+    }
+    .post__ad__right textarea {
+        width: 95%;
+    }
+    .uploader img {
+        width: 40%;
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #post__ad .main__wrapper {
+        width: 90%;
+    }
+}
+
+
+/* all house start */
+
+.all__houses {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    margin: 0 auto;
+}
+
+.search__sort {
+    width: 100%;
+    display: flex;
+    padding: 40px 0;
+}
+
+.search__sort .search {
+    width: 20%
+}
+
+.search__sort .state__make {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1
+}
+
+.search__sort .state__make .state, .search__sort .state__make .make {
+    flex-grow: 1;
+}
+
+.search__sort .price__filter {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.search__sort .price__filter .price, .search__sort .price__filter .go {
+    flex-grow: 1;
+}
+
+.search__sort .search {
+    width: 40%;
+    text-align: center;
+}
+
+.search__sort .price, .search__sort .make, .search__sort .state, .search__sort .go {
+    width: 15%;
+    text-align: center;
+}
+
+.search__sort input[type="text"], .search__sort select, .search__sort button {
+    width: 85%;
+    height: 40px;
+    border: 1px solid ;
+    margin-top: 5px;
+    margin-bottom: 13px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font-size: inherit;
+    transition: all 0.2s;
+    color: #2754ba;
+}
+
+.search__sort select {
+    height: 45px;
+}
+
+.search__sort button {
+    background: #ff8a00;
+    border-radius: 6px;
+    color: white;
+    height: 45px;
+}
+
+.all__houses__grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.all__houses__grid .grid {
+    margin-bottom: 5px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.all__houses__grid .grid .middle-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px 0px;
+    background-color: #2754ba;
+    margin: 10px;
+    justify-content: center;
+    border: 1px solid #4569bd;
+}
+
+.middle-container h2 {
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+    color: #ff8a00
+}
+.middle-container .box-left {
+    margin-bottom: 5px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.box-left .post {
+    width: 300px;
+    height: 300px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    transition: all 1s;
+}
+
+.box-right .view-all {
+ width: 50px;
+ height: 10px;
+ padding: 10px 25px;
+ margin: 5px 0;
+ align-self: center;
+ border: 1px solid #eba24f;
+ border-radius: 3px;
+ background-color: #ff8a00;
+ color: #2754ba;
+
+}
+
+.box-right .view-all a{
+ text-decoration: none; 
+ font-size: 17px;  
+ font-display: bold;
+   }
+.box-right .view-all:hover {
+    border: 1px solid #ffd09a;
+   
+   }
+
+.grid .post:hover {
+    transform: scale(1.1)
+}
+
+.grid .post a {
+    text-decoration: none;
+}
+
+.grid .post img {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.grid .post .details {
+    padding: 10px;
+    text-align: center;
+}
+
+.grid .post .details h2, .grid .post .details em {
+    margin: 0;
+}
+
+.grid .actions {
+    border-top: 1px solid gray;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 768px) {
+    .search__sort {
+        flex-direction: column
+    }
+    .search__sort .search {
+        width: 100%;
+    }
+    .search__sort .state__make {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .search__sort .state__make .state, .search__sort .state__make .make {
+        flex-grow: 1;
+    }
+    .search__sort .price__filter {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .search__sort .price__filter .price .search__sort .price__filter .filter {
+        flex-grow: 1;
+    }
+    .search__sort input[type="text"], .search__sort select, .search__sort button {
+        width: 90%
+    }
+    .search__sort .price, .search__sort .make, .search__sort .state, .search__sort .go {
+        width: 95%;
+    }
+}
+
+
+
+
+/* view-specific start  */
+
+.house {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    margin: 40px auto;
+    justify-content: space-between;
+}
+
+.house hr {
+    border: 1px solid white;
+    margin: 4px 0;
+}
+
+.house .car__details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.house__details .main__image {
+    padding: 0 6px;
+}
+
+.house__details .main__image img {
+    width: 100%;
+    height: 100%;
+}
+
+.house__details .extra__images {
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 6px;
+}
+
+.house__details .extra__images img {
+    width: 24.8%;
+}
+
+.house__detail .header {
+    text-align: justify;
+    padding: 0 20px;
+}
+
+.house__detail .header h1 {
+    margin: 15px 0 8px 0;
+}
+
+.house__detail .specs ul {
+    list-style-type: none;
+    padding: 0 20px;
+}
+
+.house__detail .specs ul li {
+    padding-bottom: 3px;
+}
+
+.house__detail .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.house__detail .actions .buy {
+    width: 100%;
+    text-align: center;
+}
+
+.house__detail .actions .others {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.house__detail .actions button {
+    background: #2754ba;
+    border-radius: 6px;
+    color: white;
+    height: 45px;
+    cursor: pointer;
+}
+
+.house__detail .actions .buy button {
+    width: 300px;
+}
+
+.house__detail .actions .others button {
+    width: 150px;
+    height: 30px;
+}
+
+.house__detail .actions .others .fav {
+    background: #5d9b00;
+    margin: 0 2px;
+}
+
+.house__detail .actions .others .report {
+    background: red;
+    margin: 0 2px;
+}
+
+.house .seller__details {
+    width: 100%;
+}
+
+.seller__details .details__card {
+    /* width: 100%; */
+    background: #2754ba;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    margin: 0 6px;
+}
+
+.seller__details .details__card .price {
+    height: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seller__details .details__card .avater__card {
+    height: 58%;
+}
+
+.seller__details .details__card .avater__card {
+    width: 80%;
+    margin: 0 auto;
+    height: 245px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.seller__details .details__card .avater__card .avater {
+    background: gainsboro;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    position: relative;
+}
+
+.seller__details .details__card .avater__card .avater img {
+    width: 50%;
+    position: absolute;
+    top: 60%;
+    left: 60%;
+}
+
+.seller__details .details__card .avater__card .name {
+    padding-top: 20px;
+}
+
+.seller__details .details__card .actions {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.seller__details .details__card .actions button {
+    width: 70%;
+    background: #2754ba;
+    border-radius: 6px;
+    color: white;
+    height: 45px;
+    cursor: pointer;
+}
+
+.seller__details .details__card .actions .show__contact {
+    background: #5d9b00;
+    margin: 0 2px;
+}
+
+.seller__details .details__card .actions .start__chat {
+    background: red;
+    margin: 0 2px;
+}
+
+.seller__details .details__card .actions .leave__feedback {
+    color: white;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 580px) {
+    .house__details .extra__images {
+        flex-direction: column;
+        width: 100%;
+        height: inherit;
+    }
+    .house__details .extra__images img {
+        width: 80%;
+        margin: 5px auto;
+    }
+}
+
+@media screen and (min-width: 680px) {
+    .house {
+        width: 80%;
+        flex-direction: row;
+    }
+    .house .house__details {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+    }
+    .house .seller__details {
+        width: 28%;
+    }
+    .house__detail .actions .others {
+        justify-content: flex-end;
+    }
+    .house__detail .actions .buy {
+        padding-left: 35px;
+        text-align: left
+    }
+    .seller__details .details__card {
+        width: 100%;
+    }
+/* } */
+
+@media screen and (max-width: 980px) {
+    .house {
+        width: 95%;
+        flex-direction: row;
+    }
+    .house .house__details {
+        width: 65%
+    }
+    .house .seller__details {
+        width: 35%;
+    }
+}
+
+/* footer */
+
+.copyright {
+    width: 100%;
+    height: 50px;
+    background: #d4dfed;
+    border-top: 1px solid white;
+    color: black;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+}
 }
