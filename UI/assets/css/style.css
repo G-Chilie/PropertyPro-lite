@@ -150,7 +150,7 @@ body {
 /* banner start */
 
 .banner-img {
-    background-image: url(/UI/assets/img/Google.jpg);
+    background-image: url(/UI/assets/img/bg3.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -163,7 +163,7 @@ body {
     background-color: rgba(255, 255, 255, 0.568);
     color: rgb(17, 17, 17);
     width: 100vw;
-    margin-top: 240px;
+    margin-top: 285px;
     text-align: center;
     border: 2px solid rgba(255, 255, 255, 0.2);
     -webkit-font-smoothing: antialiased;
