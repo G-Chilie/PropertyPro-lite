@@ -150,7 +150,7 @@ body {
 /* banner start */
 
 .banner-img {
-    background-image: url(/UI/assets/img/Google.jpeg);
+    background-image: url(/UI/assets/img/Google.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -220,11 +220,14 @@ body {
     left: 30px;
     width: 100%;
     max-width: 400px;
+    margin: auto;
     height: 860px;
     background: #2754ba;
     border-radius: 7px;
     color: white;
+
 }
+
 
 .signup__card label {
     display: block;
@@ -274,6 +277,12 @@ label em {
     font-size: 18px;
 }
 
+.post__ad {
+    margin: 0px 0px 0px 25px;
+    width: 86%;
+    align-items: center;
+}
+
 @media only screen and (max-width: 920px) {
     .main__wrapper {
         width: 80%;
@@ -309,6 +318,7 @@ label em {
         border-radius: 7px;
         color: white;
     }
+
 }
 
 /* login start */
