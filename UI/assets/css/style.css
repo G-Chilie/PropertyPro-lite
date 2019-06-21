@@ -150,7 +150,7 @@ body {
 /* banner start */
 
 .banner-img {
-    background-image: url(/UI/assets/img/bg3.jpg);
+    background-image: url(../IMG/bg3.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
