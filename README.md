@@ -2,7 +2,8 @@
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
 
 ### UI Templates
-My UI templates can be found here: [ UI ](https://g-chilie.github.io/​PropertyPro-lite)
+My UI templates can be found here: [ UI ](https://g-chilie.github.io/PropertyPro-lite/)
+
 
 ### Pivotal Tracker
 My Pivotal Tracker board can be found [ here ](https://www.pivotaltracker.com/n/projects/2356842)
