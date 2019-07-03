@@ -33,6 +33,27 @@ class UserController {
     }
   }
 
+  /**
+  *
+  * @param {object} req - request
+  * @param {object} res - response
+  */
+ static async loginUser(req, res) {
+  const { email, password } = req.body;
+  try {
+    const user = userModel.find(usr => (usr.email === email)
+      && (passwordHash.verify(password, usr.password)));
+    if (user && user !== undefined) {
+      const { id, isAgent } = user;
+      const token = await generateToken({ id, isAgent });
+      return res.status(200).json({ data: [{ token, user }], message: 'Login successful' });
+    }
+    return res.status(401).json({ error: true, message: 'Invalid email or password' });
+  } catch (err) {
+    return res.status(500).json({ error: true, message: 'Internal server error' });
+  }
+}
+
 }
 
 export default UserController;
