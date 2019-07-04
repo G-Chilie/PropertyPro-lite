@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/d3157c3a87b750e5a790/maintainability)](https://codeclimate.com/github/G-Chilie/PropertyPro-lite/maintainability)
+
 # PropertyPro-lite
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
 
