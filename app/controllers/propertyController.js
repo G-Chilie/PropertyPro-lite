@@ -56,6 +56,13 @@ class PropertyController {
     }
   }
 
+  static async getAllPropertys(req, res) {
+    return res.status(200).json({
+      status: 200,
+      message: 'propertys retrieved successfully',
+      todos: propertyModel,
+    });
+  }
 
 }
 
