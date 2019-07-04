@@ -43,6 +43,19 @@ class PropertyController {
     }
   }
 
+  static async updatePropertyAdStatus(req, res) {
+    const { propertyId } = req.params;
+    const { status } = req.body;
+    try {
+      let property = propertyModel.find(property => property.id === propertyId);
+      property = { ...property, status };
+      Helper.updateType(req, res, propertyModel, property, propertyId, 'property')
+      return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    }
+  }
+
 
 }
 
