@@ -94,6 +94,22 @@ class PropertyController {
       return res.status(500).json({ status: 500, error: 'Interal server error' });
     }
   }
+
+  static async getAProperty(req, res) {
+    const { propertyId } = req.params;
+    try {
+      const property = propertyModel.find(property => property.id === propertyId);
+      if (property) {
+        return res.status(200).json({ status: 200, data: [property] });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: `Property with id: ${propertyId} does not exist`,
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Interal server error' });
+    }
+  }
 }
 
 export default PropertyController;
