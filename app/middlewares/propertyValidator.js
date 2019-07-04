@@ -1,0 +1,58 @@
+import Helpers from '../helpers';
+import propertyModel from '../models/property';
+const { extractErrors } = Helpers;
+
+class PropertyValidator {
+  static validateProperty(req, res, next) {
+    req.checkBody('state', 'Property state is required').notEmpty().trim().isAlpha()
+      .withMessage('Property state can only contain alphabets');
+    req.checkBody('price', 'Property price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
+      .withMessage('Property price must be a valid number in two decimal place, e.g 123000.00');
+    req.checkBody('address', 'Property address is required').notEmpty().trim();
+    req.checkBody('type', 'Property type is required').notEmpty();
+    const error = req.validationErrors();
+    if (error) {
+      return res.status(400).json({ status: 400, errors: extractErrors(error) });
+    }
+    return next();
+  }
+
+  static isPropertyExist(req, res, next) {
+    const propertyId = req.params.propertyId || req.body.propertyId;
+    try {
+      const property = propertyModel.find(pr => pr.id === propertyId);
+      if (!property) {
+        return res.status(404).json({ status: 404, error: `Property Ad with id: ${propertyId} does not exist`});
+      }
+      next();
+    } catch (error) {
+      return res.status(500).json({ status: 500, error: 'Inernal server error'})
+    }
+  }
+
+  static validateStatus(req, res, next) {
+    req.checkBody('status', 'Property status is required').notEmpty().trim().isIn(['sold', 'available'])
+      .withMessage('Property status can only be sold or available')
+      .isString()
+      .withMessage('Property status must be a string');
+
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({ status: 400, errors: extractErrors(errors) });
+    }
+    return next();
+  }
+
+  static validatePrice(req, res, next) {
+    req.checkBody('price', 'Property price is required').notEmpty().trim().isFloat()
+      .withMessage('Property price must contain decimal point');
+
+      const errors = req.validationErrors();
+      if (errors) {
+        return res.status(400).json({ status: 400, errors: extractErrors(errors) });
+      }
+      return next();
+  }
+}
+
+export default PropertyValidator
