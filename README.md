@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/G-Chilie/PropertyPro-lite.svg?branch=develop)](https://travis-ci.org/G-Chilie/PropertyPro-lite)
+[![Coverage Status](https://coveralls.io/repos/github/G-Chilie/PropertyPro-lite/badge.svg?branch=develop)](https://coveralls.io/github/G-Chilie/PropertyPro-lite?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d3157c3a87b750e5a790/maintainability)](https://codeclimate.com/github/G-Chilie/PropertyPro-lite/maintainability)
 
 # PropertyPro-lite
