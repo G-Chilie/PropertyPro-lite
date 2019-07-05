@@ -1,7 +1,5 @@
 
-[![Build Status](https://travis-ci.org/G-Chilie/PropertyPro-lite.svg?branch=develop)](https://travis-ci.org/G-Chilie/PropertyPro-lite)
-[![Coverage Status](https://coveralls.io/repos/github/G-Chilie/PropertyPro-lite/badge.svg?branch=develop)](https://coveralls.io/github/G-Chilie/PropertyPro-lite?branch=develop)
-[![Maintainability](https://api.codeclimate.com/v1/badges/d3157c3a87b750e5a790/maintainability)](https://codeclimate.com/github/G-Chilie/PropertyPro-lite/maintainability)
+[![Build Status](https://travis-ci.org/G-Chilie/PropertyPro-lite.svg?branch=develop)](https://travis-ci.org/G-Chilie/PropertyPro-lite)  [![Coverage Status](https://coveralls.io/repos/github/G-Chilie/PropertyPro-lite/badge.svg?branch=develop)](https://coveralls.io/github/G-Chilie/PropertyPro-lite?branch=develop)  [![Maintainability](https://api.codeclimate.com/v1/badges/d3157c3a87b750e5a790/maintainability)](https://codeclimate.com/github/G-Chilie/PropertyPro-lite/maintainability)
 
 # PropertyPro-lite
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent.
@@ -12,6 +10,10 @@ My UI templates can be found here: [ UI ](https://g-chilie.github.io/PropertyPro
 
 ### Pivotal Tracker
 My Pivotal Tracker board can be found [ here ](https://www.pivotaltracker.com/n/projects/2356842)
+
+### Heroku Link
+My Heroku Link can be found [ here ](https://propertypro-lite-challenge.herokuapp.com/)
+
 
 ### Key Application Features
 1. User can sign up.
