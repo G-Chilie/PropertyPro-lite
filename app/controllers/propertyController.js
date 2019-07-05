@@ -110,6 +110,25 @@ class PropertyController {
       return res.status(500).json({ status: 500, error: 'Interal server error' });
     }
   }
+
+  static async deletePropertyAd(req, res) {
+    const { propertyId } = req.params;
+    try {
+      for (let i = 0; i < propertyModel.length; i += 1) {
+        if (propertyModel[i].id === propertyId) {
+          propertyModel.splice(i, 1);
+          return res.status(200).json({
+            status: 204,
+            data: [],
+            message: 'Property Ad deleted successfully',
+          });
+        }
+      }
+      return res.status(404).json({ status: 404, message: `Property with id: ${propertyId} not found` });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    }
+  }
 }
 
 export default PropertyController;
