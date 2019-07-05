@@ -4,12 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "npm run clean && babel app -d ./app/dist",
     "dev": "DEBUG=http nodemon --exec babel-node ./app/app.js",
-    "clean": "rm -rf ./app/dist",
     "lint": "eslint ./app --fix",
-    "start": "npm run build && node ./app/dist/app.js ",
+    "start": "export NODE_ENV=production && babel-node ./app/app.js",
     "test": "mocha --require @babel/register ./app/test/**/*.js  --exit",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "chinwe",
