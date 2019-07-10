@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "DEBUG=http nodemon --exec babel-node ./app/app.js",
     "lint": "eslint ./app --fix",
+    "migrate": "DEBUG=migrate babel-node ./app/database/migrate.js",
+    "migrate:reset": "DEBUG=migrate:reset babel-node ./app/database/migrateReset",
+    "seed": "DEBUG=seed babel-node ./app/database/seeds",
     "start": "export NODE_ENV=production && babel-node ./app/app.js",
     "test": "mocha --require @babel/register ./app/test/**/*.js  --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
@@ -31,9 +34,7 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
-    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.9.1",
     "shortid": "^2.2.14",
     "swagger-ui-express": "^4.0.2"
   },
