@@ -6,6 +6,5 @@ cache:
     - "node_modules"
 env: 
   -SECRET=111222333
-  -NODE_ENV=development
 script: npm test
-after_success: npm run coverage
+after_success: npm run coveralls
