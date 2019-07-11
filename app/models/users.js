@@ -1,23 +1,25 @@
-const UserModel = [
-    {
-      firstname: 'Chinwe',
-      lastname: 'Okonkwo',
-      email: 'agent@gmail.com',
-      password: 'sha1$fc8dc1d2$1$036ea46b75d0017897c09a4022c90787e5287778',
-      phone: '08163446686',
-      address: 'Ikeja GRA',
-      isAgent: true,
-    },
-    {
-      firstname: 'John',
-      lastname: 'Doe',
-      email: 'user@gmail.com',
-      password: 'sha1$fc8dc1d2$1$036ea46b75d0017897c09a4022c90787e5287778',
-      phone: '08163446686',
-      address: 'Ikeja GRA',
-      isAgent: false,
-    },
-  ];
-  
-  export default UserModel;
-  
+import pool from '../config/connection';
+
+class User {
+  static async create(values) {
+    const client = await pool.connect();
+    let user;
+    const text = `INSERT INTO users(first_name, last_name, email, password, phoneNumber, address)
+      VALUES($1, $2, $3, $4, $5, $6) RETURNING id, firstname, lastname, email, isAdmin, phone, passportUrl, address, createdOn`;
+    try {
+      user = await client.query({ text, values });
+      if (user.rowCount) {
+        user = user.rows[0];
+        return user;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      await client.release();
+    }
+  }
+
+
+}
+export default User;

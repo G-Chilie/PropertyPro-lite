@@ -1,9 +1,9 @@
 import passwordHash from 'password-hash';
-import shortId from 'shortid';
+import helpers from '../helpers';
 import Auth from '../helpers/auth';
 import userModel from '../models/users';
 
-const { generateToken } = Auth;
+const { generateToken, verifyToken } = Auth;
 
 class UserController {
   /**
@@ -12,26 +12,28 @@ class UserController {
    * @param {object} res - response
    */
   static async createAccount(req, res) {
-    const isAgent = false;
-    const id = shortId.generate();
     try {
-      const { firstName, lastName, email, phone, password, address } = req.body;
+      const { first_Name, last_Name, email, phoneNumber, password, address } = req.body;
       const hashedpassword = passwordHash.generate(password);
-      const user = {
-        id, firstName, lastName, email, phone, address, isAgent, password: hashedpassword
-      };
-      userModel.push(user);
-      const token = await generateToken({ id, isAgent });
-      return res.status(201).json({
-        status: 201,
-        data: [{
-          token, user
-        }],
-      });
-    } catch (err) {
-      return res.status(500).json({ error: true, message: 'Internal Server error' });
+      const values = [first_Name, last_Name, email, phoneNumber, address, hashedpassword ];
+      const user = await userModel.create(values);
+      if (user) {
+        const { id, is_admin } = user;
+        const token = await generateToken({ id, is_admin });
+        return res.status(201).json({
+          status: 201,
+          data: [{ token, user }],
+        });
+      }
+  } catch (err) {
+    if (err.constraint === 'users_email_key') {
+      return res.status(409).json({ error: true, message: 'User with this email already exists' });
+    } if (err.constraint === 'users_phone_key') {
+      return res.status(409).json({ error: true, message: 'User with this phone number already exit'});
     }
+    return res.status(500).json({ error: true, message: 'Internal server error'});
   }
+}
 
   /**
   *

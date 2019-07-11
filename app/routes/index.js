@@ -14,17 +14,17 @@ const { validateProperty, isPropertyExist, validateStatus, validatePrice } = Pro
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
-router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+// router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
-// Property routes
-const propertyBaseUrl = '/api/v1/property';
-router.post(`${propertyBaseUrl}`, isTokenValid, isAgent, validateProperty, createPropertyAd);
-router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isAgent, isPropertyExist, validateStatus, updatePropertyAdStatus);
-router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isAgent, isPropertyExist, validatePrice, updatePropertyAdPrice);
-router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
-router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);
-router.get(`${propertyBaseUrl}/getByType/:propertyType`, isTokenValid, getPropertysByType);
-router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, isAgent, deletePropertyAd);
+// // Property routes
+// const propertyBaseUrl = '/api/v1/property';
+// router.post(`${propertyBaseUrl}`, isTokenValid, isAgent, validateProperty, createPropertyAd);
+// router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isAgent, isPropertyExist, validateStatus, updatePropertyAdStatus);
+// router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isAgent, isPropertyExist, validatePrice, updatePropertyAdPrice);
+// router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
+// router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);
+// router.get(`${propertyBaseUrl}/getByType/:propertyType`, isTokenValid, getPropertysByType);
+// router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, isAgent, deletePropertyAd);
 
 export default router;
 

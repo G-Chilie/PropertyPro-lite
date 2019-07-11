@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import debug from 'debug';
 import jwt from 'jsonwebtoken';
 import Helpers from '../helpers';
 import Auth from '../helpers/auth';
@@ -7,7 +6,6 @@ import UserModel from '../models/users';
 
 const SECRET = process.env.SECRET || 'SuperSecretTokenKeyXXX&*&';
 const { verifyToken } = Auth;
-const debugg = debug('authValidator');
 const { extractErrors } = Helpers;
 dotenv.config();
 
@@ -23,13 +21,13 @@ class AuthValidator {
      * @param {callback} next
      */
   static validateSignUp(req, res, next) {
-    req.check('firstname', 'First name is required').notEmpty().trim().isAlpha()
+    req.check('first_name', 'First name is required').notEmpty().trim().isAlpha()
       .withMessage('First name can only contain alphabets');
-    req.check('lastname', 'Last name is required').notEmpty().trim().isAlpha()
+    req.check('last_name', 'Last name is required').notEmpty().trim().isAlpha()
       .withMessage('Last name can only contain alphabets');
     req.check('email', 'Email is required').notEmpty().isEmail()
       .withMessage('Invalid email');
-    req.check('phone', 'The phone number is required').notEmpty().trim()
+    req.check('phoneNumber', 'The phone number is required').notEmpty().trim()
       .isLength({ min: 11 })
       .withMessage('Enter a valid phone number');
     req.check('password', 'Password is required')
@@ -59,14 +57,14 @@ class AuthValidator {
   static async userExists(req, res, next) {
     const { email } = req.body;
     try {
-      const user = UserModel.find(usr => usr.email === email);
-      if (user && user !== undefined) {
+      const user = await UserModel.findByEmail(email);
+      if (user) {
         return res.status(409).json({
           status: 409, error: `User with email ${email} already exists`,
         });
       }
     } catch (err) {
-      debugg(err);
+      throw err;
     }
     return next();
   }
@@ -105,7 +103,7 @@ class AuthValidator {
    * @param {object} next - callback
    * @returns
    */
-  static isTokenValid(req, res, next) {
+  static async isTokenValid(req, res, next) {
     try {
       let authorization;
       if (req.headers.token) authorization = req.headers.token;
@@ -113,12 +111,12 @@ class AuthValidator {
       if (!authorization) {
         return res.status(401).json({ status: 401, error: 'You must log in to continue' });
       }
-      jwt.verify(authorization, SECRET, (err, decoded) => {
+      jwt.verify(authorization, SECRET, async (err, decoded) => {
         if (err) {
           return res.status(401).json({ status: 401, error: 'Invalid token, kindly log in to continue' });
         }
         const { id } = decoded;
-        const user = UserModel.find(usr => usr.id === id);
+        const user = await UserModel.findById(id);
         if (user) {
           req.body.tokenPayload = decoded;
           return next();
@@ -126,13 +124,13 @@ class AuthValidator {
         return res.status(401).json({ status: 401, error: 'User with the specified token does not exist' });
       });
     } catch (err) {
-      return res.status(401).json({ status: 401, error: 'Internal server error, please try again' });
+      return res.status(401).json({ status: 401, error: 'Kindly login to continue' });
     }
   }
 
   /**
   *
-  * Verifies agent
+  * Verifies admin
   * @static
   * @param {object} req - request
   * @param {object} res - response
@@ -140,7 +138,7 @@ class AuthValidator {
   * @returns
   */
 
-  static isAgent(req, res, next) {
+  static isAdmin(req, res, next) {
     try {
       const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
 
@@ -148,8 +146,8 @@ class AuthValidator {
         return res.status(401).json({ status: 401, message: 'Invalid token, kindly log in to continue' });
       }
       const verifiedToken = verifyToken(authorization);
-      if (!verifiedToken.isAgent) {
-        return res.status(401).json({ status: 401, message: 'Only an Agent can perform this task' });
+      if (!verifiedToken.isadmin) {
+        return res.status(401).json({ status: 401, message: 'Only an Admin can perform this task' });
       }
     } catch (err) {
       return res.status(401).json({ status: 500, message: 'Internal server error, please try again' });
@@ -159,4 +157,3 @@ class AuthValidator {
 }
 
 export default AuthValidator;
-
