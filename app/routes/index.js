@@ -7,14 +7,14 @@ import PropertyValidator from '../middlewares/propertyValidator'
 const router = express.Router();
 
 const { createAccount, loginUser } = UserController;
-const { validateSignUp, userExists, validateLogin, isTokenValid, isAgent } = AuthValidator;
+const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
 const { createPropertyAd, updatePropertyAdStatus, updatePropertyAdPrice, getAProperty, getAllPropertys, deletePropertyAd, getPropertysByType } = PropertyController;
 const { validateProperty, isPropertyExist, validateStatus, validatePrice } = PropertyValidator;
 
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
-// router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
 // // Property routes
 // const propertyBaseUrl = '/api/v1/property';

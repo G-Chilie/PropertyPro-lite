@@ -17,7 +17,8 @@ class Auth {
 
     }
 
-      /**
+
+    /**
    * @description Decodes the access token
    * @param {string} token - The access token
    * @returns {object} payload - the decoded access token

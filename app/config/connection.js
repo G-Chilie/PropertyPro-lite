@@ -3,7 +3,8 @@ import dbConfig from './dbConfig';
 
 const connectionString = dbConfig.db;
 const pool = new Pool({
-    connectionString
+  connectionString,
 });
+
 
 export default pool;
