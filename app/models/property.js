@@ -38,7 +38,22 @@ class Property {
         }
       }
 
-      
+      static async delete(id) {
+        const values = [id];
+        const client = await pool.connect();
+        let property;
+        const text = 'DELETE FROM propertys WHERE id = $1 RETURNING id';
+        try {
+          property = await client.query({ text, values });
+          if (property.rowCount) {
+            return true;
+          }
+          return false;
+        } catch (err) {
+          throw err;
+        } finally {
+          client.release();
+        }  
 }
 
 export default Property;
