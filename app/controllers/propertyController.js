@@ -23,6 +23,24 @@ class PropertyController {
     }
   }
 
+  static async updatePropertyAdStatus(req, res) {
+    const { propertyId } = req.params;
+    const { status } = req.body;
+    const data = { name: 'status', value: status };
+    try {
+      const property = await propertyModel.update(propertyId, data);
+      if (property) {
+        return res.status(200).json({
+          status: 200,
+          data: [property],
+          message: 'Property Ad updated successfully',
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    }
+  }
+
 
   static async updatePropertyAdPrice(req, res) {
     const { propertyId } = req.params;

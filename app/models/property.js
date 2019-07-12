@@ -19,6 +19,24 @@ class Property {
             await client.release();
         }
     }
+
+    static async update(id, data) {
+        const values = [data.value, id];
+        const client = await pool.connect();
+        let property;
+        const text = `UPDATE propertys SET ${data.name} = $1 WHERE id = $2 RETURNING *`;
+        try {
+            property = await client.query({ text, values });
+          if (property.rowCount) {
+            return property.rows[0];
+          }
+          return false;
+        } catch (err) {
+          throw err;
+        } finally {
+          client.release();
+        }
+      }
 }
 
 export default Property;
