@@ -37,6 +37,8 @@ class Property {
           client.release();
         }
       }
+
+      
 }
 
 export default Property;
