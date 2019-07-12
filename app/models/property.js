@@ -38,6 +38,23 @@ class Property {
         }
       }
 
+      static async getAll() {
+        const client = await pool.connect();
+        let propertys;
+        const text = 'SELECT * FROM propertys';
+        try {
+          propertys = await client.query({ text });
+          if (propertys.rows && propertys.rowCount) {
+            return propertys.rows;
+          }
+          return false;
+        } catch (err) {
+          throw err;
+        } finally {
+          client.release();
+        }
+      }
+
       static async delete(id) {
         const values = [id];
         const client = await pool.connect();

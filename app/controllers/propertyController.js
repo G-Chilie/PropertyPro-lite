@@ -117,6 +117,21 @@ class PropertyController {
     }
   }
 
+  static async getAllPropertys(req, res) {
+    try {
+      const propertys = await propertyModel.getAll();
+      if (propertys) {
+        return res.status(200).json({ status: 200, data: [propertys] });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: 'No property exist',
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    }
+  }
+
   static async deletePropertyAd(req, res) {
     const { propertyId } = req.params;
     try {
