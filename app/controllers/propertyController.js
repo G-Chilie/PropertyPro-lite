@@ -45,11 +45,16 @@ class PropertyController {
   static async updatePropertyAdPrice(req, res) {
     const { propertyId } = req.params;
     const { price } = req.body;
+    const data = { name: 'price', value: price };
     try {
-      let property = propertyModel.find(property => property.id === propertyId);
-      property = { ...property, price };
-      Helper.updateType(req, res, propertyModel, property, propertyId, 'property')
-      return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
+      const property = await propertyModel.update(propertyId, data);
+      if (property) {
+        return res.status(200).json({
+          status: 200,
+          data: [property],
+        });
+      }
+      return res.status(500).json({ status: 404, error: `Property with id: ${propertyId} does not exist` });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
     }
