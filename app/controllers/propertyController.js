@@ -1,6 +1,4 @@
-import shortId from 'shortid';
 import propertyModel from '../models/property';
-import Helper from '../helpers/index'
 
 class PropertyController {
   /**
@@ -9,21 +7,17 @@ class PropertyController {
          * @param {object} res - response
          */
   static async createPropertyAd(req, res) {
-    const id = shortId.generate();
-    const status = 'available';
-    const createdOn = new Date();
-    try {
+      try {
       const { id: owner } = req.body.tokenPayload;
-      const { state, price, address, type } = req.body;
-      const property = {
-        id, owner, createdOn, state, status, price, address, type
-      };
-      propertyModel.push(property);
-      return res.status(201).json({
-        status: 201,
-        data: [property],
-        message: 'Property Ad created successfully',
-      });
+      const { state, price, address, type, image_url} = req.body;
+      const values = [owner, price, state, address, type, image_url];
+      const property = await propertyModel.create(values);
+      if (property) {
+        return res.status(201).json({
+          status: 201,
+          data: [property],
+        });
+      }
     } catch (err) {
       return res.status(500).json({ error: true, message: 'Internal server error' });
     }
@@ -43,18 +37,7 @@ class PropertyController {
     }
   }
 
-  static async updatePropertyAdStatus(req, res) {
-    const { propertyId } = req.params;
-    const { status } = req.body;
-    try {
-      let property = propertyModel.find(property => property.id === propertyId);
-      property = { ...property, status };
-      Helper.updateType(req, res, propertyModel, property, propertyId, 'property')
-      return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
-    } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Internal server error' });
-    }
-  }
+  
 
   static async getAllPropertys(req, res) {
     return res.status(200).json({
