@@ -5,7 +5,7 @@ const users = `CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL UNIQUE,
     is_admin BOOLEAN DEFAULT false,
     password VARCHAR(100) NOT NULL,
-    phoneNumber VARCHAR(15) NOT NULL UNIQUE,
+    phone_number VARCHAR(15) NOT NULL UNIQUE,
     address VARCHAR(200) DEFAULT NULL
 )`; 
 
