@@ -16,15 +16,15 @@ const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
 router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
-// // Property routes
-// const propertyBaseUrl = '/api/v1/property';
-// router.post(`${propertyBaseUrl}`, isTokenValid, isAgent, validateProperty, createPropertyAd);
-// router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isAgent, isPropertyExist, validateStatus, updatePropertyAdStatus);
-// router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isAgent, isPropertyExist, validatePrice, updatePropertyAdPrice);
-// router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
+// Property routes
+const propertyBaseUrl = '/api/v1/property';
+router.post(`${propertyBaseUrl}`, isTokenValid, isAdmin, validateProperty, createPropertyAd);
+router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isAdmin, isPropertyExist, validateStatus, updatePropertyAdStatus);
+router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isAdmin, isPropertyExist, validatePrice, updatePropertyAdPrice);
+router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
 // router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);
 // router.get(`${propertyBaseUrl}/getByType/:propertyType`, isTokenValid, getPropertysByType);
-// router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, isAgent, deletePropertyAd);
+router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, isAdmin, deletePropertyAd);
 
 export default router;
 
