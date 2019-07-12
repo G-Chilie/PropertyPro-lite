@@ -27,7 +27,7 @@ class AuthValidator {
       .withMessage('Last name can only contain alphabets');
     req.check('email', 'Email is required').notEmpty().isEmail()
       .withMessage('Invalid email');
-    req.check('phoneNumber', 'The phone number is required').notEmpty().trim()
+    req.check('phone_number', 'The phone number is required').notEmpty().trim()
       .isLength({ min: 11 })
       .withMessage('Enter a valid phone number');
     req.check('password', 'Password is required')

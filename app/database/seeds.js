@@ -6,13 +6,13 @@ const debugg = debug('seed');
 
 const password = passwordHash.generate('secret');
 
-const userA = `INSERT INTO users(first_name, last_name, email, phoneNumber, address )
+const userA = `INSERT INTO users(first_name, last_name, email, phone_number, address )
                 VALUES('John', 'Doe', 'john.user@gmail.com', '08163446686', '${password}', '111 str, Peace Estate, Lagos, Nigeria')`;
 
-const userB = `INSERT INTO users(first_name, last_name, email, phoneNumber, address )
+const userB = `INSERT INTO users(first_name, last_name, email, phone_number, address )
                 VALUES('Bill', 'Gates', 'Bill.user@gmail.com', '08163446686', '${password}', '111 str, Ajao Estate, Lagos, Nigeria')`;
 
-const admin = `INSERT INTO users(first_name, last_name, is_Admin, email, phoneNumber, password, address)
+const admin = `INSERT INTO users(first_name, last_name, is_Admin, email, phone_number, password, address)
                 VALUES('Chinwe', 'Okonkwo', true, 'Chinwe.admin@gmail.com', '07066554435', '${password}', '707 str, Ikeja GRA, Lagos, Nigeria')`;
 
 const propertyA = `INSERT INTO propertys(owner, status, state, price, address, type, created_on, image_url)

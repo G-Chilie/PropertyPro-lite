@@ -13,9 +13,9 @@ class UserController {
    */
   static async createAccount(req, res) {
     try {
-      const { first_Name, last_Name, email, phoneNumber, password, address } = req.body;
+      const { first_Name, last_Name, email, phone_number, password, address } = req.body;
       const hashedpassword = passwordHash.generate(password);
-      const values = [first_Name, last_Name, email, phoneNumber, address, hashedpassword ];
+      const values = [first_Name, last_Name, email, phone_number, address, hashedpassword ];
       const user = await userModel.create(values);
       if (user) {
         const { id, is_admin } = user;
