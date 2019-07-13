@@ -22,9 +22,13 @@ router.post(`${propertyBaseUrl}`, isTokenValid, isAdmin, validateProperty, creat
 router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isAdmin, isPropertyExist, validateStatus, updatePropertyAdStatus);
 router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isAdmin, isPropertyExist, validatePrice, updatePropertyAdPrice);
 router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
-// router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);
+router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);
 // router.get(`${propertyBaseUrl}/getByType/:propertyType`, isTokenValid, getPropertysByType);
 router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, isAdmin, deletePropertyAd);
+
+//Flag route
+const flagBaseUrl = '/api/v1/flag';
+router.post(`${flagBaseUrl}`, isTokenValid, validateFlag, isPropertyExist, createFlag)
 
 export default router;
 
