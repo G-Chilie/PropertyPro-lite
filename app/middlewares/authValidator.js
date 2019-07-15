@@ -143,14 +143,14 @@ class AuthValidator {
       const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
 
       if (!authorization) {
-        return res.status(401).json({ status: 401, message: 'Invalid token, kindly log in to continue' });
+        return res.status(401).json({ status: 401, error: 'Invalid token, kindly log in to continue' });
       }
       const verifiedToken = verifyToken(authorization);
       if (!verifiedToken.is_admin) {
-        return res.status(401).json({ status: 401, message: 'Only an Admin can perform this task' });
+        return res.status(401).json({ status: 401, error: 'Only an Admin can perform this task' });
       }
     } catch (err) {
-      return res.status(401).json({ status: 500, message: 'Internal server error, please try again' });
+      return res.status(401).json({ status: 500, error: 'Internal server error, please try again' });
     }
     return next();
   }
