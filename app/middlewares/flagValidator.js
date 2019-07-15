@@ -4,7 +4,7 @@ const { extractErrors } = Helpers;
 
 class FlagValidator {
   static validateFlag(req, res, next) {
-    req.checkBody('propertId', 'Property Id is required').notEmpty().trim();
+    req.checkBody('property_id', 'Property Id is required').notEmpty().trim();
     req.checkBody('reason', 'Reason is required').notEmpty();
     req.checkBody('description', 'Description is required').notEmpty();
 

@@ -14,12 +14,12 @@ class PropertyController {
       const property = await propertyModel.create(values);
       if (property) {
         return res.status(201).json({
-          status: 201,
-          data: [property],
+          status: 'success',
+          data: property
         });
       }
     } catch (err) {
-      return res.status(500).json({ error: true, message: 'Internal server error' });
+      return res.status(500).json({ status: 'error', error: 'Internal server error' });
     }
   }
 
@@ -31,13 +31,13 @@ class PropertyController {
       const property = await propertyModel.update(propertyId, data);
       if (property) {
         return res.status(200).json({
-          status: 200,
-          data: [property],
-          message: 'Property Ad updated successfully',
+          status: 'success',
+          data: property
         });
       }
+      return res.status(500).json({ status: 'error', error: `Property with id: ${propertyId} does not exist` });
     } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+      return res.status(500).json({ status: 'error', error: 'Internal Server error' });
     }
   }
 
@@ -50,85 +50,29 @@ class PropertyController {
       const property = await propertyModel.update(propertyId, data);
       if (property) {
         return res.status(200).json({
-          status: 200,
-          data: [property],
+          status: 'success',
+          data: property
         });
       }
-      return res.status(500).json({ status: 404, error: `Property with id: ${propertyId} does not exist` });
+      return res.status(500).json({ status: 'error', error: `Property with id: ${propertyId} does not exist` });
     } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+      return res.status(500).json({ status: 'error', error: 'Internal Server error' });
     }
   }
 
-  
-
-  static async getAllPropertys(req, res) {
-    return res.status(200).json({
-      status: 200,
-      message: 'propertys retrieved successfully',
-      todos: propertyModel,
-    });
-  }
-
-  static async getPropertysByType(req, res) {
-    const { propertyType } = req.params;
-    try {
-      const property = propertyModel.filter(property => property.type === propertyType);
-      if (property) {
-        return res.status(200).json({ status: 200, data: [property] });
-      }
-      return res.status(404).json({
-        status: 404,
-        error: `Property with type: ${propertyType} does not exist`,
-      });
-    } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Interal server error' });
-    }
-  }
-  static async getPropertysByType(req, res) {
-    const { propertyType } = req.params;
-    try {
-      const property = propertyModel.filter(property => property.type === propertyType);
-      if (property) {
-        return res.status(200).json({ status: 200, data: [property] });
-      }
-      return res.status(404).json({
-        status: 404,
-        error: `Property with type: ${propertyType} does not exist`,
-      });
-    } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Interal server error' });
-    }
-  }
-
-  static async getAProperty(req, res) {
-    const { propertyId } = req.params;
-    try {
-      const property = propertyModel.find(property => property.id === propertyId);
-      if (property) {
-        return res.status(200).json({ status: 200, data: [property] });
-      }
-      return res.status(404).json({
-        status: 404,
-        error: `Property with id: ${propertyId} does not exist`,
-      });
-    } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Interal server error' });
-    }
-  }
 
   static async getAllPropertys(req, res) {
     try {
       const propertys = await propertyModel.getAll();
       if (propertys) {
-        return res.status(200).json({ status: 200, data: [propertys] });
+        return res.status(200).json({ status: 'success', data: propertys });
       }
       return res.status(404).json({
-        status: 404,
+        status: 'error',
         error: 'No property exist',
       });
     } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Internal server error' });
+      return res.status(500).json({ status: 'error', error: 'Internal server error' });
     }
   }
 
@@ -137,16 +81,32 @@ class PropertyController {
       const { propertyId } = req.params;
       const property = await propertyModel.getById(propertyId);
       if (property) {
-        return res.status(200).json({ status: 200, data: [property] });
+        return res.status(200).json({ status: 'success', data: property });
       }
       return res.status(404).json({
-        status: 404,
-        error: `Property with id: ${propertyId} does not exist`,
+        status: 'error',
+        error: `Property with id: ${propertyId} does not exist`
       });
     } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Internal server error' });
+      return res.status(500).json({ status: 'error', error: 'Internal server error' });
     }
   }
+
+  static async getPropertysByType(req, res) {
+    const { type } = req.query;
+    try {
+      const propertys = await propertyModel.getByType(type);
+      if(propertys) {
+        return res.status(200).json({ status: 'success', data: propertys });
+      }
+      return res.status(404).json({
+        status: 'error',
+        error: `No property exist with type: ${type}, type is case sensitive`
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 'error', error: `Internal server error` });
+    }
+  } 
 
   static async deletePropertyAd(req, res) {
     const { propertyId } = req.params;
@@ -154,12 +114,10 @@ class PropertyController {
       const property = await propertyModel.delete(propertyId);
       if (property) {
         return res.status(200).json({
-          status: 204,
-          data: [],
-          message: 'Property Ad deleted successfully',
+          status: 'success',
+          data: { message: 'Property Ad deleted successfully' }
         });
       }
-      return res.status(404).json({ status: 404, message: `Property with id: ${carId} not found` });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
     }

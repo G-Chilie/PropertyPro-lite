@@ -5,10 +5,10 @@ class Property {
     const client = await pool.connect();
     let property;
     const text = `INSERT INTO propertys(owner, price, state, address, type, image_url)
-            VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+            VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
     try {
       property = await client.query({ text, values });
-      if (Property.rowCount) {
+      if (property.rowCount) {
         property = property.rows[0];
         return property;
       }
@@ -65,6 +65,25 @@ class Property {
       if (property.rows && property.rowCount) {
         property = property.rows[0];
         return property;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
+
+  static async getByType(type) {
+    const values = [type];
+    const client = await pool.connect();
+    let propertys;
+    const text = 'SELECT * FROM propertys WHERE type = $1';
+    try {
+      propertys = await client.query({ text, values });
+      if (propertys.rows && propertys.rowCount) {
+        propertys = propertys.rows;
+        return propertys;
       }
       return false;
     } catch (err) {

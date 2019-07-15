@@ -1,9 +1,8 @@
 import passwordHash from 'password-hash';
 import Auth from '../helpers/auth';
-import helper from '../helpers';
 import userModel from '../models/users';
 
-const { generateToken, verifyToken } = Auth;
+const { generateToken } = Auth;
 
 class UserController {
   /**
@@ -13,25 +12,25 @@ class UserController {
    */
   static async createAccount(req, res) {
     try {
-      const { first_Name, last_Name, email, phone_number, password, address } = req.body;
+      const { first_name, last_name, email, password, phone_number, address} = req.body;
       const hashedpassword = passwordHash.generate(password);
-      const values = [first_Name, last_Name, email, phone_number, address, hashedpassword ];
+      const values = [first_name, last_name, email, hashedpassword, phone_number, address ];
       const user = await userModel.create(values);
       if (user) {
         const { id, is_admin } = user;
         const token = await generateToken({ id, is_admin });
         return res.status(201).json({
-          status: 201,
-          data: [{ token, user }],
+          status: 'success',
+          data: { token, ...user },
         });
       }
   } catch (err) {
     if (err.constraint === 'users_email_key') {
-      return res.status(409).json({ error: true, message: 'User with this email already exists' });
+      return res.status(409).json({ status: 'error', error: 'User with this email already exists' });
     } if (err.constraint === 'users_phone_key') {
-      return res.status(409).json({ error: true, message: 'User with this phone number already exit'});
+      return res.status(409).json({ status: 'error', error: 'User with this phone number already exit'});
     }
-    return res.status(500).json({ error: true, message: 'Internal server error'});
+    return res.status(500).json({ status: 'error', error: 'Internal server error'});
   }
 }
 
@@ -48,13 +47,13 @@ class UserController {
       if (passwordHash.verify(password, user.password)) {
         const { id, is_admin } = user;
         const token = await generateToken({ id, is_admin });
-        return res.status(200).json({ data: [{ token, user }], message: 'Login successful' });
+        return res.status(200).json({ status: 'success', data: { token, ...user } });
       }
-      return res.status(401).json({ error: true, message: 'Invalid email or password' });
+      return res.status(401).json({ status: 'error', error: 'Invalid email or password' });
     }
-    return res.status(401).json({ error: true, message: 'Invalid email or password' });
+    return res.status(401).json({ status: 'error', error: 'Invalid email or password' });
   } catch (err) {
-    return res.status(500).json({ error: true, message: 'Internal Server error' });
+    return res.status(500).json({ status: 'error', error: 'Internal Server error' });
   }
 
 }
