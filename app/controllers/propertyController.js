@@ -1,4 +1,5 @@
 import propertyModel from '../models/property';
+import userModel from '../models/users'
 
 class PropertyController {
   /**
@@ -8,9 +9,14 @@ class PropertyController {
          */
   static async createPropertyAd(req, res) {
       try {
+        let owner_email
       const { id: owner } = req.body.tokenPayload;
+      const owner = userModel.findById(owner)
+      if(owner){
+        owner_email = owner.email
+      }
       const { state, price, address, type, image_url} = req.body;
-      const values = [owner, price, state, address, type, image_url];
+      const values = [owner, price, state, address, type, image_url, owner_email];
       const property = await propertyModel.create(values);
       if (property) {
         return res.status(201).json({

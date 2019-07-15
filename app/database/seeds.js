@@ -15,11 +15,11 @@ const userB = `INSERT INTO users(first_name, last_name, email, phone_number, pas
 const admin = `INSERT INTO users(first_name, last_name, is_admin, email, phone_number, password, address)
                 VALUES('Chinwe', 'Okonkwo', true, 'chinwe.admin@gmail.com', '07066554435', '${password}', '707 str, Ikeja GRA, Lagos, Nigeria')`;
 
-const propertyA = `INSERT INTO propertys(owner, status, state, price, address, type, image_url)
-                VALUES(1, 'available', 'Lagos', '6500000', '111 str, Peace Estate, Lagos, Nigeria', '1_bedroom', 'https://res.cloudinary.com/chinwecloud/image/upload/v1562767247/sample.jpg')`;
+const propertyA = `INSERT INTO propertys(owner, status, state, price, address, type, image_url, owner_email)
+                VALUES(1, 'available', 'Lagos', '6500000', '111 str, Peace Estate, Lagos, Nigeria', '1_bedroom', 'https://res.cloudinary.com/chinwecloud/image/upload/v1562767247/sample.jpg', 'john.user@gmail.com')`;
 
-const propertyB = `INSERT INTO propertys(owner, status, state, price, address, type, image_url)
-                VALUES(2, 'available', 'Lagos', '7500000', '111 str, Ajao Estate, Lagos, Nigeria', '2_bedroom', 'https://res.cloudinary.com/chinwecloud/image/upload/v1562767247/sample.jpg')`;
+const propertyB = `INSERT INTO propertys(owner, status, state, price, address, type, image_url, owner_email)
+                VALUES(2, 'available', 'Lagos', '7500000', '111 str, Ajao Estate, Lagos, Nigeria', '2_bedroom', 'https://res.cloudinary.com/chinwecloud/image/upload/v1562767247/sample.jpg', 'john.user@gmail.com')`;
 
 const flag = `INSERT INTO flags(property_id, reason, description)
                 VALUES(2, 'Fake images', 'The images being displayed are not original images of the vehicle')`;
