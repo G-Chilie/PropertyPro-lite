@@ -14,6 +14,7 @@ class PropertyValidator {
     req.checkBody('type', 'Property type is required').notEmpty();
     const error = req.validationErrors();
     if (error) {
+      console.log(error)
       return res.status(400).json({ status: 400, error: extractErrors(error) });
     }
     return next();
