@@ -18,7 +18,7 @@ const { validateFlag } = FlagValidator;
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
-router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/signin`, validateLogin, loginUser);
 
 // Property routes
 const propertyBaseUrl = '/api/v1/property';
