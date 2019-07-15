@@ -39,7 +39,7 @@ class AuthValidator {
 
     if (errors) {
       return res.status(400).json({
-        errors: extractErrors(errors),
+        error: extractErrors(errors),
         status: 400,
       });
     }
@@ -87,7 +87,7 @@ class AuthValidator {
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({
-        errors: extractErrors(errors),
+        error: extractErrors(errors),
         status: 400,
       });
     }
