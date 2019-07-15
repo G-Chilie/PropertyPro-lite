@@ -10,7 +10,8 @@
     "migrate:reset": "DEBUG=migrate:reset babel-node ./app/database/migrateReset",
     "seed": "DEBUG=seed babel-node ./app/database/seeds",
     "start": "export NODE_ENV=production && babel-node ./app/app.js",
-    "test": "npm run migrate:reset && npm run migrate && npm run seed && nyc mocha --require @babel/register ./app/test/**/*.js  --exit",
+    "pre:test": "npm run migrate:reset && npm run migrate && npm run seed",
+    "test": "npm run pre:test && nyc mocha --require @babel/register ./app/test/**/*.js  --exit",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },

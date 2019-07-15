@@ -3,13 +3,17 @@ import UserController from '../controllers/userController';
 import AuthValidator from '../middlewares/authValidator';
 import PropertyController from '../controllers/propertyController';
 import PropertyValidator from '../middlewares/propertyValidator'
+import FlagController from '../controllers/flagController';
+import FlagValidator from '../middlewares/flagValidator';
 
 const router = express.Router();
 
 const { createAccount, loginUser } = UserController;
-const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
+const { validateSignUp, userExists, validateLogin,  isTokenValid, isAdmin } = AuthValidator;
 const { createPropertyAd, updatePropertyAdStatus, updatePropertyAdPrice, getAProperty, getAllPropertys, deletePropertyAd, getPropertysByType } = PropertyController;
 const { validateProperty, isPropertyExist, validateStatus, validatePrice } = PropertyValidator;
+const { createFlag } = FlagController;
+const { validateFlag } = FlagValidator;
 
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
@@ -21,9 +25,9 @@ const propertyBaseUrl = '/api/v1/property';
 router.post(`${propertyBaseUrl}`, isTokenValid, isAdmin, validateProperty, createPropertyAd);
 router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isAdmin, isPropertyExist, validateStatus, updatePropertyAdStatus);
 router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isAdmin, isPropertyExist, validatePrice, updatePropertyAdPrice);
+router.get(`${propertyBaseUrl}/getByType`, isTokenValid, getPropertysByType);
 router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
 router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);
-// router.get(`${propertyBaseUrl}/getByType/:propertyType`, isTokenValid, getPropertysByType);
 router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, isAdmin, deletePropertyAd);
 
 //Flag route

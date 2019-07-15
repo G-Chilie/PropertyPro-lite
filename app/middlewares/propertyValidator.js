@@ -6,8 +6,8 @@ class PropertyValidator {
   static validateProperty(req, res, next) {
     req.checkBody('state', 'Property state is required').notEmpty().trim().isAlpha()
       .withMessage('Property state can only contain alphabets');
-    req.checkBody('price', 'Property price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
-      .withMessage('Property price must be a valid number in two decimal place, e.g 123000.00');
+    req.checkBody('price', 'Property price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+      .withMessage('Property price must be a valid number');
     req.checkBody('address', 'Property address is required').notEmpty().trim();
     req.checkBody('type', 'Property type is required').notEmpty();
     const error = req.validationErrors();
@@ -18,14 +18,15 @@ class PropertyValidator {
   }
 
   static isPropertyExist(req, res, next) {
-    const propertyId = req.params.propertyId || req.body.propertyId;
+    const propertyId = req.params.propertyId || req.body.property_id;
     try {
-      const property = propertyModel.find(pr => pr.id === propertyId);
+      const property = propertyModel.getById(propertyId);
       if (!property) {
         return res.status(404).json({ status: 404, error: `Property Ad with id: ${propertyId} does not exist`});
       }
       next();
     } catch (error) {
+      console.log(error)
       return res.status(500).json({ status: 500, error: 'Inernal server error'})
     }
   }

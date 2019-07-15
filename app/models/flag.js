@@ -4,7 +4,7 @@ class Flag {
   static async create(values) {
     const client = await pool.connect();
     let flag;
-    const text = `INSERT INTO flags(propertyId, reason, description)
+    const text = `INSERT INTO flags(property_id, reason, description)
       VALUES($1, $2, $3) RETURNING *`;
     try {
       flag = await client.query({ text, values });

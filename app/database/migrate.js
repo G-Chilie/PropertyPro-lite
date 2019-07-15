@@ -13,9 +13,6 @@ const debugg =debug('migrate');
         debugg('migrating propertys...');
         await client.query(tables.propertys);
 
-        debugg('migrating orders...');
-        await client.query(tables.orders);
-
         debugg('migrating flags...');
         await client.query(tables.flags);
     } catch (err) {
