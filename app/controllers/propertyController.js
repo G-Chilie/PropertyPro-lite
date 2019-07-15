@@ -11,9 +11,9 @@ class PropertyController {
       try {
         let owner_email
       const { id: owner } = req.body.tokenPayload;
-      const owner = userModel.findById(owner)
-      if(owner){
-        owner_email = owner.email
+      const ownerData = userModel.findById(owner)
+      if(ownerData){
+        owner_email = ownerData.email
       }
       const { state, price, address, type, image_url} = req.body;
       const values = [owner, price, state, address, type, image_url, owner_email];
