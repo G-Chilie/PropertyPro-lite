@@ -104,6 +104,7 @@ class AuthValidator {
    * @returns
    */
   static async isTokenValid(req, res, next) {
+    console.log('yyyyyy', req.body)
     try {
       let authorization;
       if (req.headers.token) authorization = req.headers.token;
