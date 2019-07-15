@@ -8,11 +8,11 @@ class PropertyController {
          * @param {object} res - response
          */
   static async createPropertyAd(req, res) {
+    console.log('yooooo', req.body)
       try {
         let owner_email
       const { id: owner } = req.body.tokenPayload;
       const ownerData = await userModel.findById(owner)
-      console.log(ownerData)
       if(ownerData){
         owner_email = ownerData.email
       }
