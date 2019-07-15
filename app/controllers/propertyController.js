@@ -11,12 +11,13 @@ class PropertyController {
       try {
         let owner_email
       const { id: owner } = req.body.tokenPayload;
-      const ownerData = userModel.findById(owner)
+      const ownerData = await userModel.findById(owner)
+      console.log(ownerData)
       if(ownerData){
         owner_email = ownerData.email
       }
-      const { state, price, address, type, image_url} = req.body;
-      const values = [owner, price, state, address, type, image_url, owner_email];
+      const { state, price, address, type, image_url, city} = req.body;
+      const values = [owner, price, state, address, type, image_url, owner_email, city];
       const property = await propertyModel.create(values);
       if (property) {
         return res.status(201).json({
@@ -25,6 +26,7 @@ class PropertyController {
         });
       }
     } catch (err) {
+      console.log(err)
       return res.status(500).json({ status: 'error', error: 'Internal server error' });
     }
   }
