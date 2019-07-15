@@ -12,7 +12,7 @@ class PropertyValidator {
     req.checkBody('type', 'Property type is required').notEmpty();
     const error = req.validationErrors();
     if (error) {
-      return res.status(400).json({ status: 400, errors: extractErrors(error) });
+      return res.status(400).json({ status: 400, error: extractErrors(error) });
     }
     return next();
   }
@@ -39,7 +39,7 @@ class PropertyValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      return res.status(400).json({ status: 400, errors: extractErrors(errors) });
+      return res.status(400).json({ status: 400, error: extractErrors(errors) });
     }
     return next();
   }
@@ -50,7 +50,7 @@ class PropertyValidator {
 
       const errors = req.validationErrors();
       if (errors) {
-        return res.status(400).json({ status: 400, errors: extractErrors(errors) });
+        return res.status(400).json({ status: 400, error: extractErrors(errors) });
       }
       return next();
   }
