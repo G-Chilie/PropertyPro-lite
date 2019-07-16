@@ -8,7 +8,6 @@ class PropertyController {
          * @param {object} res - response
          */
   static async createPropertyAd(req, res) {
-    console.log('yooooo', req.body)
       try {
         let owner_email
       const { id: owner } = req.body.tokenPayload;
@@ -26,7 +25,6 @@ class PropertyController {
         });
       }
     } catch (err) {
-      console.log(err)
       return res.status(500).json({ status: 'error', error: 'Internal server error' });
     }
   }

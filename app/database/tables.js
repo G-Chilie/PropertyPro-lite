@@ -12,7 +12,7 @@ const users = `CREATE TABLE IF NOT EXISTS users (
 const propertys = `CREATE TABLE IF NOT EXISTS propertys (
     id SERIAL PRIMARY KEY,
     owner INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    owner_email VARCHAR(100) NOT NULL UNIQUE,
+    owner_email VARCHAR(100) NOT NULL,
     state VARCHAR(100),
     city VARCHAR(100),
     status VARCHAR(100) DEFAULT('Available'),
