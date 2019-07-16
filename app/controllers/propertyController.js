@@ -99,10 +99,10 @@ class PropertyController {
       const property = await propertyModel.getById(propertyId);
       if (property) {
         console.log(property)
-        return res.status(200).json({ status: 'available', ...property });
+        return res.status(200).json({ status: 200, data: { status: 'available', ...property } });
       }
       return res.status(404).json({
-        status: 'error',
+        status: 404,
         error: `Property with id: ${propertyId} does not exist`
       });
     } catch (err) {
