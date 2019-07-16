@@ -99,7 +99,7 @@ class PropertyController {
       const property = await propertyModel.getById(propertyId);
       if (property) {
         console.log(property)
-        return res.status(200).json({ status: 'success', data: { status: 'available', ...property } });
+        return res.status(200).json({ status: 'available', ...property });
       }
       return res.status(404).json({
         status: 'error',
