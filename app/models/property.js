@@ -4,8 +4,8 @@ class Property {
   static async create(values) {
     const client = await pool.connect();
     let property;
-    const text = `INSERT INTO propertys(owner, price, state, address, type, image_url, owner_email, city)
-            VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+    const text = `INSERT INTO propertys(id, owner, price, state, address, type, image_url, owner_email, city)
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
     try {
       property = await client.query({ text, values });
       if (property.rowCount) {
