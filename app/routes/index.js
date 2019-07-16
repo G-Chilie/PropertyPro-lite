@@ -22,13 +22,13 @@ router.post(`${authBaseUrl}/signin`, validateLogin, loginUser);
 
 // Property routes
 const propertyBaseUrl = '/api/v1/property';
-router.post(`${propertyBaseUrl}`, isTokenValid, validateProperty, createPropertyAd);
-router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isPropertyExist, validateStatus, updatePropertyAdStatus);
-router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isPropertyExist, validatePrice, updatePropertyAdPrice);
+router.post(`${propertyBaseUrl}`, isTokenValid,  createPropertyAd);
+router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, updatePropertyAdStatus);
+router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, updatePropertyAdPrice);
 router.get(`${propertyBaseUrl}/getByType`, isTokenValid, getPropertysByType);
 router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
 router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);
-router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, isAdmin, deletePropertyAd);
+router.delete(`${propertyBaseUrl}/:propertyId`, isTokenValid, deletePropertyAd);
 
 //Flag route
 const flagBaseUrl = '/api/v1/flag';
