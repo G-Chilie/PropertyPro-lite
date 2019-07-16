@@ -9,11 +9,11 @@ class PropertyController {
          * @param {object} res - response
          */
   static async createPropertyAd(req, res) {
-      try {
-        let owner_email = null
+    try {
+      let owner_email = null
       const { id: owner } = req.body.tokenPayload;
       const ownerData = await userModel.findById(owner)
-      if(ownerData){
+      if (ownerData) {
         owner_email = ownerData.email
       }
       const id = shortid.generate()
@@ -65,7 +65,10 @@ class PropertyController {
       if (property) {
         return res.status(200).json({
           status: 'success',
-          data: property
+          data: {
+            status: 'available',
+            ...property
+          }
         });
       }
       return res.status(500).json({ status: 'error', error: `Property with id: ${propertyId} does not exist` });
@@ -110,7 +113,7 @@ class PropertyController {
     const { type } = req.query;
     try {
       const propertys = await propertyModel.getByType(type);
-      if(propertys) {
+      if (propertys) {
         return res.status(200).json({ status: 'success', data: propertys });
       }
       return res.status(404).json({
@@ -120,7 +123,7 @@ class PropertyController {
     } catch (err) {
       return res.status(500).json({ status: 'error', error: `Internal server error` });
     }
-  } 
+  }
 
   static async deletePropertyAd(req, res) {
     const { propertyId } = req.params;
