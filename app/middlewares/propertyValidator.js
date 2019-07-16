@@ -4,7 +4,8 @@ const { extractErrors } = Helpers;
 
 class PropertyValidator {
   static validateProperty(req, res, next) {
-    console.log('nnnnnnn', req.body)
+    console.log('propery body', req.body )
+    console.log('property validator req.property', req.property || 'not provided')
     req.checkBody('state', 'Property state is required').notEmpty().trim().isAlpha()
       .withMessage('Property state can only contain alphabets');
     req.checkBody('city', 'city is required').notEmpty().trim().isAlpha()
