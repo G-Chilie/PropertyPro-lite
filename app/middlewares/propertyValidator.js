@@ -16,6 +16,7 @@ class PropertyValidator {
     req.checkBody('image_url', 'Property image url is required').notEmpty();
     const error = req.validationErrors();
     if (error) {
+      console.log(error)
       return res.status(400).json({ status: 400, error: extractErrors(error) });
     }
     return next();
