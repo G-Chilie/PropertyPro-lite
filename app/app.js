@@ -10,8 +10,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(expressValidator());
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(router);
 app.get('/', (req, res) => {
     res.status(200).send(
