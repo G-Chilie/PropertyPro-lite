@@ -25,7 +25,6 @@ class UserController {
         });
       }
   } catch (err) {
-    console.log(err)
     if (err.constraint === 'users_email_key') {
       return res.status(409).json({ status: 'error', error: 'User with this email already exists' });
     } if (err.constraint === 'users_phone_number_key') {

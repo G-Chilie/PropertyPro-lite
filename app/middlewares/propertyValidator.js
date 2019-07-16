@@ -4,8 +4,7 @@ const { extractErrors } = Helpers;
 
 class PropertyValidator {
   static validateProperty(req, res, next) {
-    console.log('propery body', req.body )
-    console.log('property validator req.property', req.property || 'not provided')
+    console.log('look at the entire req object', req)
     req.checkBody('state', 'Property state is required').notEmpty().trim().isAlpha()
       .withMessage('Property state can only contain alphabets');
     req.checkBody('city', 'city is required').notEmpty().trim().isAlpha()
@@ -17,7 +16,6 @@ class PropertyValidator {
     req.checkBody('image_url', 'Property image url is required').notEmpty();
     const error = req.validationErrors();
     if (error) {
-      console.log(error)
       return res.status(400).json({ status: 400, error: extractErrors(error) });
     }
     return next();
@@ -32,7 +30,6 @@ class PropertyValidator {
       }
       next();
     } catch (error) {
-      console.log(error)
       return res.status(500).json({ status: 500, error: 'Inernal server error' })
     }
   }
