@@ -9,7 +9,7 @@ const SECRET = process.env.SECRET || 'SuperSecretTokenKeyXXX&*&';
 class Auth {
     /**
      * @description Handles access token generation
-     * @param {object} payload - The user credential {id, isAgent}
+     * @param {object} payload - The user credential {id, isAdmin}
      * @return {string} access token
      */
     static generateToken(payload) {
