@@ -22,9 +22,9 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
 // Property routes
 const propertyBaseUrl = '/api/v1/property';
-router.post(`${propertyBaseUrl}`, isTokenValid, isAdmin, validateProperty, createPropertyAd);
-router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isAdmin, isPropertyExist, validateStatus, updatePropertyAdStatus);
-router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isAdmin, isPropertyExist, validatePrice, updatePropertyAdPrice);
+router.post(`${propertyBaseUrl}`, isTokenValid, validateProperty, createPropertyAd);
+router.patch(`${propertyBaseUrl}/:propertyId/status`, isTokenValid, isPropertyExist, validateStatus, updatePropertyAdStatus);
+router.patch(`${propertyBaseUrl}/:propertyId/price`, isTokenValid, isPropertyExist, validatePrice, updatePropertyAdPrice);
 router.get(`${propertyBaseUrl}/getByType`, isTokenValid, getPropertysByType);
 router.get(`${propertyBaseUrl}`, isTokenValid, getAllPropertys);
 router.get(`${propertyBaseUrl}/:propertyId`, isTokenValid, getAProperty);

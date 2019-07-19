@@ -1,0 +1,725 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0",
+      "title": "Property Pro Lite",
+      "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent."
+    },
+    "schemes": [
+      "https"
+    ],
+    "host": "propertypro-lite-challenge.herokuapp.com/",
+    "basePath": "/api/v1",
+    "securityDefinitions": {
+      "Bearer": {
+        "type": "bearer",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "tags": [
+      {
+        "name": "Auth",
+        "description": "Endpoint for Authentication"
+      },
+      {
+        "name": "Property",
+        "description": "Endpoint for Users"
+      },
+      {
+        "name": "Flag",
+        "description": "Endpoint for flaging/reporting a property Ad"
+      }
+    ],
+    "paths": {
+      "/auth/signup": {
+        "post": {
+          "description": "User can create an account",
+          "summary": "Sign up",
+          "tags": [
+            "Auth"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing user information",
+              "schema": {
+                "$ref": "#/requestBody/user"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Account created successfully"
+            },
+            "400": {
+              "description": "Please fill in the fields"
+            },
+            "409": {
+              "description": "User with email/phone already exists"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/user"
+            }
+          }
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "description": "User can login in",
+          "summary": "Login in",
+          "tags": [
+            "Auth"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing user login information",
+              "schema": {
+                "$ref": "#/requestBody/login"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Login successful"
+            },
+            "400": {
+              "description": "Please fill in the fields"
+            },
+            "401": {
+              "description": "Invalid email or password"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/user"
+            }
+          }
+        }
+      },
+      "/property": {
+        "get": {
+          "description": "(Admin) Get all propertys sold or not",
+          "summary": "Return a list of all propertys Ads on the system sold or not",
+          "tags": [
+            "Property"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            },
+            "404": {
+              "description": "No property found"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/propertys"
+            }
+          }
+        }
+      },
+      "/property/getByBodyType?status={status}&bodyType={bodyType}": {
+        "get": {
+          "description": "Get all property based on status and bodyType",
+          "summary": "Returns all property that matches the filters",
+          "tags": [
+            "Property"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "status",
+              "required": true,
+              "description": "The status of the property Ad"
+            },
+            {
+              "in": "query",
+              "name": "bodyType",
+              "required": true,
+              "description": "The body type of the property Ad"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            },
+            "404": {
+              "description": "No Property found with status = status and bodyType = bodyType"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/propertys"
+            }
+          }
+        }
+      },
+      "/property/{propertyId}": {
+        "delete": {
+          "description": "Delete a single property Ad",
+          "summary": "(Admin) Deletes the property Ad with the id of propertyId",
+          "tags": [
+            "Property"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "propertyId",
+              "required": true,
+              "description": "The Id of the property Ad to be deleted"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property Ad delete successfully"
+            },
+            "404": {
+              "description": "Property not Found"
+            },
+            "401": {
+              "description": "Only an admin can perfrom this task"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/deleteProperty"
+            }
+          }
+        }
+      },
+      "/property": {
+        "post": {
+          "description": "Create new property Ad",
+          "summary": "Handles Creating of property Ads by users",
+          "tags": [
+            "Property"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing data for the new property Ad",
+              "schema": {
+                "$ref": "#/requestBody/property"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property Ad created successfully"
+            },
+            "400": {
+              "description": "Some fields are empty or invalid data format"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/singleProperty"
+            }
+          }
+        }
+      },
+      "/property/{propertyId}": {
+        "get": {
+          "description": "Get a single property Ad",
+          "summary": "Returns a single property Ad with the property id",
+          "tags": [
+            "Property"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "propertyId",
+              "required": true,
+              "description": "The Id of the property Ad"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            },
+            "404": {
+              "description": "Property not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/singleProperty"
+            }
+          }
+        }
+      },
+      "/property/{propertyId}/status": {
+        "patch": {
+          "description": "Update property Ad status",
+          "summary": "Handle update of property Ad status",
+          "tags": [
+            "Property"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "propertyId",
+              "required": true,
+              "description": "The id of the property Ad to be updated"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing the new property status",
+              "schema": {
+                "$ref": "#/requestBody/updateStatus"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property Ad susccessfully updated"
+            },
+            "400": {
+              "description": "Validation Error"
+            },
+            "404": {
+              "description": "Property not found"
+            },
+            "401": {
+              "description": "Authentication error or permission denied"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/singleProperty"
+            }
+          }
+        }
+      },
+      "/property/{propertyId}/price": {
+        "patch": {
+          "description": "Update property Ad price",
+          "summary": "Handle update of property Ad price",
+          "tags": [
+            "Property"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "propertyId",
+              "required": true,
+              "description": "The id of the property Ad to be updated"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing the new property price",
+              "schema": {
+                "$ref": "#/requestBody/updatePrice"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property Ad susccessfully updated"
+            },
+            "400": {
+              "description": "Validation Error"
+            },
+            "404": {
+              "description": "Property not found"
+            },
+            "401": {
+              "description": "Authentication error or permission denied"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/singleProperty"
+            }
+          }
+        }
+      },
+      "/flag": {
+        "post": {
+          "description": "Flag a property Ad",
+          "summary": "Create a new property flag record",
+          "tags": [
+            "Flag"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing data for the new property Ad flag",
+              "schema": {
+                "$ref": "#/requestBody/flag"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Property Ad flag created successfully"
+            },
+            "400": {
+              "description": "Some fields are empty or invalid data format"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "response": {
+              "$ref": "#/responseBody/flagCreated"
+            }
+          }
+        }
+      }
+    },
+    "requestBody": {
+      "user": {
+        "title": "User",
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "description": "first name of the user",
+            "type": "string"
+          },
+          "lastname": {
+            "description": "last name of the user",
+            "type": "string"
+          },
+          "email": {
+            "description": "email of the user",
+            "type": "string"
+          },
+          "phone": {
+            "description": "Phone number of the user",
+            "type": "string"
+          },
+          "passportUrl": {
+            "description": "The url of the user profile image",
+            "type": "string"
+          },
+          "password": {
+            "description": "The Password of the user",
+            "type": "string"
+          },
+          "address": {
+            "description": "The Address of the user",
+            "type": "string"
+          }
+        },
+        "example": {
+          "firstname": "John",
+          "lastname": "Doe",
+          "email": "johndoe@example.com",
+          "password": "secret",
+          "phone": "09000000000",
+          "passportUrl": "https://cloudinary.com/user123",
+          "address": "123 Ajao Estate"
+        },
+        "required": [
+          "phone, email, firstname, lastname, password, address"
+        ]
+      },
+      "flag": {
+        "title": "Flag",
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "description": "Id of property to be flaged",
+            "type": "string"
+          },
+          "reason": {
+            "description": "Reason for flaging property Ad",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the incident result to flaging",
+            "type": "string"
+          }
+        },
+        "example": {
+          "propertyId": 3,
+          "reason": "Fake property images",
+          "description": "property Ad contains fake images"
+        },
+        "required": [
+          "propertyId, reason, description"
+        ]
+      },
+      "login": {
+        "title": "Login",
+        "type": "object",
+        "properties": {
+          "email": {
+            "description": "email address of the user user",
+            "type": "string"
+          },
+          "password": {
+            "description": "The Password of the user",
+            "type": "string"
+          }
+        },
+        "example": {
+          "email": "johndoe@example.com",
+          "password": "password12"
+        },
+        "required": [
+          "email, password,"
+        ]
+      },
+      "updateStatus": {
+        "title": "Update Status",
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "new status of property ad",
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": "Sold"
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "updatePrice": {
+        "title": "Update Price",
+        "type": "object",
+        "properties": {
+          "price": {
+            "description": "new price of property ad",
+            "type": "string"
+          }
+        },
+        "example": {
+          "price": "1200000.00"
+        },
+        "required": [
+          "price"
+        ]
+      },
+      "property": {
+        "title": "Property",
+        "type": "object",
+        "properties": {
+          "state": {
+            "description": "The state of the new property [Used or New]",
+            "type": "string"
+          },
+          "price": {
+            "description": "The price of the new property (In two decimal places)",
+            "type": "float"
+          },
+          "address": {
+            "description": "The address of the new property",
+            "type": "string"
+          },
+          "city": {
+            "description": "The city of the new property",
+            "type": "string"
+          },
+          "bodyType": {
+            "description": "The body type of the new property",
+            "type": "string"
+          },
+          "mainImageUrl": {
+            "description": "The main image url of the property Ad"
+          }
+        },
+        "example": {
+          "state": "New",
+          "price": 17000000.00,
+          "address": "No. 11, Joy Avn, Lagos, Nigeria",
+          "city": "Avalon",
+          "type": "Property",
+          "image_url": "http://cloudinary.com/image3.jgp"
+        },
+        "required": [
+          "state",
+          "price",
+          "address",
+          "city",
+          "type",
+          "image_url"
+        ]
+      }
+    },
+    "responseBody": {
+      "user": {
+        "example": {
+          "status": 201,
+          "data": [
+            {
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaXNhZG1pbiI6ZmFsc2UsImlhdCI6MTU2MDYxMzYwOSwiZXhwIjoxNTYwNzAwMDA5fQ.VmVWWfy1c3ANDD9P4Arcf2qZPu_Az8dfhJYXPZSu5IY",
+              "user": {
+                "id": 5,
+                "firstname": "Chinweoke",
+                "lastname": "Okonkwo",
+                "email": "okonkwo@gmail.com",
+                "isadmin": false,
+                "phone": "09167556634",
+                "passporturl": null,
+                "address": "AJao estate",
+                "createdon": "2019-06-15T14:46:48.928Z"
+              }
+            }
+          ]
+        }
+      },
+      "propertys": {
+        "example": {
+          "status": 200,
+          "data": [
+            {
+              "id": 1,
+              "owner": 1,
+              "state": "Lagos",
+              "status": "Available",
+              "price": "6500000.00",
+              "address": "No. 4, Ajao Estate, Lagos, Nigeria",
+              "city": "Lagos",
+              "type": "2_bedroom",
+              "image_url": "https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg",
+              "leftimageurl": null,
+              "rightimageurl": null,
+              "frontimageurl": null,
+              "backimageurl": null,
+              "createdon": "2019-06-14T20:12:17.167Z",
+              "updatedon": "2019-06-14T20:12:17.167Z"
+            },
+            {
+              "id": 2,
+              "owner": 1,
+              "state": "Lagos",
+              "status": "Available",
+              "price": "1500000.00",
+              "address": "No. 11, Joy Avn, Lagos, Nigeria",
+              "city": "Lagos",
+              "type": "2_bedroom",
+              "image_url": "https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg",
+              "leftimageurl": null,
+              "rightimageurl": null,
+              "frontimageurl": null,
+              "backimageurl": null,
+              "createdon": "2019-06-14T20:12:17.222Z",
+              "updatedon": "2019-06-14T20:12:17.222Z"
+            }
+          ]
+        }
+      },
+      "singleProperty": {
+        "example": {
+          "status": 200,
+          "data": [
+            {
+              "id": 1,
+              "owner": 1,
+              "state": "Lagos",
+              "status": "Available",
+              "price": "6500000.00",
+              "address": "No. 11, Joy Avn, Lagos, Nigeria",
+              "city": "Lagos",
+              "type": "3_bedroom",
+              "image_url": "https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg",
+              "leftimageurl": null,
+              "rightimageurl": null,
+              "frontimageurl": null,
+              "backimageurl": null,
+              "createdon": "2019-06-14T20:12:17.167Z",
+              "updatedon": "2019-06-14T20:12:17.167Z"
+            }
+          ]
+        }
+      },
+      "deleteProperty": {
+        "status": 204,
+        "data": [],
+        "message": "Property Ad deleted successfully"
+      },
+      "flagCreated": {
+        "status": 201,
+        "data": [
+          {
+            "propertyId": 3,
+            "reason": "Fake property images",
+            "description": "property Ad contains fake images"
+          }
+        ],
+        "message": "Property Ad has been flaged successfully"
+      }
+    }
+  }
