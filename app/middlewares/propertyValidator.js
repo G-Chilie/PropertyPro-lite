@@ -45,8 +45,8 @@ class PropertyValidator {
   }
 
   static validatePrice(req, res, next) {
-    req.checkBody('price', 'Property price is required').notEmpty().trim().isFloat()
-      .withMessage('Property price must contain decimal point');
+    req.isCurrency({ allow_negatives: false, require_decimal: false })
+    .withMessage('Property price must be a valid number');
 
       const errors = req.validationErrors();
       if (errors) {
