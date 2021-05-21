@@ -174,42 +174,42 @@ describe('Authentication endpoints', function () {
             }
         });
 
-        it('It should return a reset password form', (done) => {
-            try {
-                chai.request(app)
-                    .get(`${baseUrl}/reset/${userToken}`)
-                    .end(() => {
-                        done();
-                    });
-            } catch (err) {
-                throw err;
-            }
-        });
+        // it('It should return a reset password form', (done) => {
+        //     try {
+        //         chai.request(app)
+        //             .get(`${baseUrl}/reset/${userToken}`)
+        //             .end(() => {
+        //                 done();
+        //             });
+        //     } catch (err) {
+        //         throw err;
+        //     }
+        // });
 
-        it('It should return password must be 6 digits error', (done) => {
-            try {
-                chai.request(app)
-                    .post(`${baseUrl}/reset`)
-                    .send({ ...newPassword, password: 'hshs' })
-                    .end(() => {
-                        done();
-                    });
-            } catch (err) {
-                throw err;
-            }
-        });
-        it('It should return password doest match error', (done) => {
-            try {
-                chai.request(app)
-                    .post(`${baseUrl}/reset`)
-                    .send({ ...newPassword, passwordConfirmation: 'hdhdhdhdh' })
-                    .end(() => {
-                        done();
-                    });
-            } catch (err) {
-                throw err;
-            }
-        });
+        // it('It should return password must be 6 digits error', (done) => {
+        //     try {
+        //         chai.request(app)
+        //             .post(`${baseUrl}/reset`)
+        //             .send({ ...newPassword, password: 'hshs' })
+        //             .end(() => {
+        //                 done();
+        //             });
+        //     } catch (err) {
+        //         throw err;
+        //     }
+        // });
+        // it('It should return password doest match error', (done) => {
+        //     try {
+        //         chai.request(app)
+        //             .post(`${baseUrl}/reset`)
+        //             .send({ ...newPassword, passwordConfirmation: 'hdhdhdhdh' })
+        //             .end(() => {
+        //                 done();
+        //             });
+        //     } catch (err) {
+        //         throw err;
+        //     }
+        // });
         it('It should return password reset successfully', (done) => {
             try {
                 chai.request(app)
